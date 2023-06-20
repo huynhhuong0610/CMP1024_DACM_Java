@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh mục sản phẩm</title>
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+  <h2>Danh mục Role</h2>
+  <table class="table">
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+      <a style="text-decoration: none; color: red" href="/roles/add">Thêm Role</a>
+    </div>
+    <!--<button type="submit" class="btn btn-outline-primary btn-block mb-4" style="margin-top: 10px">
+    Thêm danh mục
+    </button>-->
+    <thead>
+    <tr>
+      <th scope="col">
+        Mã Role
+      </th>
+      <th scope="col">
+        Tên Role
+      </th>
+      <th scope="col">
+
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+    <tr th:each="role : ${roles}">
+      <td th:text="${role.id}" style="vertical-align: middle"></td>
+      <td th:text="${role.name}" style="vertical-align: middle"></td>
+
+      <td style="vertical-align: middle">
+        <div class="row">
+        <div sec:authorize="hasAnyAuthority('EDITOR', 'ADMIN')">
+          <a style="color: unset" th:href="@{'/roles/edit/' + ${role.id}}"><i style="color: dodgerblue" class="fa-solid fa-pen-to-square"></i></a>
+        </div> |
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+          <a style="color: unset" th:href="@{'/roles/delete/' + ${role.id}}"
+             onclick="return confirm('NẾU LỠ TAY THÌ CÚT')"><i style="color: red" class="fa-solid fa-trash"></i></a>
+        </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>

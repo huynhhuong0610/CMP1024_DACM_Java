@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách đơn hàng</title>
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+    <h2>Danh sách đơn hàng</h2>
+    <table class="table">
+        <!--<div sec:authorize="hasAnyAuthority('ADMIN')">
+            <a style="text-decoration: none; color: red" href="/users/add">Thêm người dùng</a>
+        </div>-->
+        <!--<button type="submit" class="btn btn-outline-primary btn-block mb-4" style="margin-top: 10px">
+        Thêm danh mục
+        </button>-->
+        <thead>
+        <tr>
+            <th scope="col">
+                Mã đơn hàng
+            </th>
+            <th scope="col">
+                Tên khách hàng
+            </th>
+            <th scope="col">
+                Địa chỉ
+            </th>
+            <th scope="col">
+                Ngày dự kiến giao
+            </th>
+            <th scope="col">
+                Ngày đặt hàng
+            </th>
+            <th scope="col">
+                Trạng thái đơn hàng
+            </th>
+            <th scope="col">
+                Tổng tiền
+            </th>
+        </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+        <tr th:each="order : ${order}">
+            <td th:text="${order.id}" style="vertical-align: middle"></td>
+            <td th:text="${order.user.username}" style="vertical-align: middle"></td>
+            <td th:text="${order.address}" style="vertical-align: middle"></td>
+            <td th:text="${order.delivereddate}" style="vertical-align: middle"></td>
+            <td th:text="${order.orderdate}" style="vertical-align: middle"></td>
+            <!--<td th:text="${order.status}" style="vertical-align: middle"></td>-->
+            <td style="vertical-align: middle">
+                <span th:if="${order.status}">Đã đặt hàng thành công</span>
+                <span th:unless="${order.status}">Hủy đơn hàng</span>
+            </td>
+            <td th:text="${order.total}" style="vertical-align: middle"></td>
+
+            <td style="vertical-align: middle">
+                <div class="row">
+                    <div sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a style="color: unset" th:href="@{'/orders/details/' + ${order.id}}"><i style="color: dodgerblue" class="fa-solid fa-pen-to-square"></i></a>
+                    </div>
+                    <!--<div sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a style="color: unset" th:href="@{'/orders/delete/' + ${order.id}}" onclick="return confirm('BẠN CÓ MUỐN XÓA THIỆT TÌNH CHỨ ????')"><i style="color: red" class="fa-solid fa-trash"></i></a>
+                    </div>-->
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm người dùng</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+    <h1>Thêm người dùng</h1>
+    <form th:action="@{/users/add}" th:object="${user}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <!--<form th:action="@{/users/add}" th:object="${user}" method="post">-->
+        <div class="col-6 mb-3">
+            <label class="form-label" for="username">Tên người dùng: </label>
+            <input class="form-control" type="text" th:field="*{username}" id="username">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="email">Email: </label>
+            <input class="form-control" type="text" th:field="*{email}" id="email">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="phonenumber">Số điện thoại: </label>
+            <input class="form-control" type="text" th:field="*{phonenumber}" id="phonenumber">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="address">Địa chỉ: </label>
+            <input class="form-control" type="text" th:field="*{address}" id="address">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="col-sm-2 col-form-label">Photo:</label>
+            <input class="form-control" type="file" name="image" accept="image/png, image/jpg">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="password">Mật khẩu: </label>
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="Password" pattern=".{7,}" title="Password must be at least 7 characters long" required>
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="password">Xác nhận lại mật khẩu: </label>
+            <input type="password" id="passwordConfirmed" name="passwordConfirmed" class="form-control"
+                   placeholder="Xác nhận lại mật khẩu" pattern=".{7,}" title="Password must be at least 7 characters long" required>
+            <span id="passwordMatch" style="display: none; color: red;">Mật khẩu không đúng.</span>
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label">Danh mục quyền: </label>
+            <select class="form-control" id ="role" name = "role.id" required>
+                <option value="">--Danh mục quyền--</option>
+                <option th:each="role :${roles}" th:value="${role.id}"
+                        th:text="${role.name}"></option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+    <br>
+    <a th:href="@{/users}">Quay về</a>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+
+<script>
+    // Kiểm tra xác nhận mật khẩu
+    document.getElementById("passwordConfirmed").addEventListener("keyup", function () {
+        var password = document.getElementById("password").value;
+        var confirmedPassword = document.getElementById("passwordConfirmed").value;
+        if (password === confirmedPassword) {
+            document.getElementById("passwordMatch").style.display = "none";
+        } else {
+            document.getElementById("passwordMatch").style.display = "block";
+        }
+    });
+</script>
+
+</body>
+</html>

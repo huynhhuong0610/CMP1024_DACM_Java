@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách nhà cung cấp</title>
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+  <h2>Danh sách nhà cung cấp</h2>
+  <div sec:authorize="hasAnyAuthority('ADMIN')">
+    <a style="text-decoration: none; color: red" href="/suppliers/add">Thêm nhà cung cấp</a>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">
+        Mã nhà cung cấp
+      </th>
+      <th scope="col">
+        Tên nhà cung cấp
+      </th>
+      <th scope="col">
+        Số điện thoại
+      </th>
+      <th scope="col">
+
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+    <tr th:each="supplier : ${suppliers}">
+      <td th:text="${supplier.id}" style="vertical-align: middle"></td>
+      <td th:text="${supplier.name}" style="vertical-align: middle"></td>
+      <td th:text="${supplier.phonenumber}" style="vertical-align: middle"></td>
+
+      <td style="vertical-align: middle">
+        <div class="row">
+        <div sec:authorize="hasAnyAuthority('EDITOR', 'ADMIN')">
+          <a style="color: unset" th:href="@{'/suppliers/edit/' + ${supplier.id}}"><i style="color: dodgerblue" class="fa-solid fa-pen-to-square"></i></a>
+        </div> |
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+          <a style="color: unset" th:href="@{'/suppliers/delete/' + ${supplier.id}}"
+             onclick="return confirm('BẠN CÓ MUỐN XÓA THIỆT TÌNH CHỨ ????')"><i style="color: red" class="fa-solid fa-trash"></i></a>
+        </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>

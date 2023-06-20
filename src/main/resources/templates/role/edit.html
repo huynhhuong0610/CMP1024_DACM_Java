@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Role</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+    <h1>Sửa Role</h1>
+    <form th:action="@{/roles/edit}" th:object="${role}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="col-6 mb-3">
+            <label class="form-label" for="name">Name: </label>
+            <input class="form-control" type="text" th:field="*{name}" id="name">
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+    <br>
+    <a th:href="@{/roles}">Quay về</a>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>

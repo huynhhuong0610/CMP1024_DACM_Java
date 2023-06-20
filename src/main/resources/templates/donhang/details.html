@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết đơn hàng</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+  <h2>Chi tiết đơn hàng</h2>
+  <table class="table">
+    <!--<div sec:authorize="hasAnyAuthority('ADMIN')">
+        <a style="text-decoration: none; color: red" href="/users/add">Thêm người dùng</a>
+    </div>-->
+    <!--<button type="submit" class="btn btn-outline-primary btn-block mb-4" style="margin-top: 10px">
+    Thêm danh mục
+    </button>-->
+    <thead>
+    <tr>
+      <th scope="col">
+        Mã đơn hàng
+      </th>
+      <th scope="col">
+        Sản phẩm
+      </th>
+      <th scope="col">
+        Số lượng
+      </th>
+      <th scope="col">
+        Giá
+      </th>
+      <th scope="col">
+        Thành tiền
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+    <tr th:each="detail : ${list}">
+      <td th:text="*{detail.id.orderId}" style="vertical-align: middle"></td>
+      <td th:text="*{detail.id.productId}" style="vertical-align: middle"></td>
+      <td th:text="${detail.quantity}" style="vertical-align: middle"></td>
+      <td th:text="${detail.price}" style="vertical-align: middle"></td>
+      <td th:text="${detail.price * detail.quantity}" style="vertical-align: middle"></td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <a th:href="@{/orders}">Quay về</a>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>

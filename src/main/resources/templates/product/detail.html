@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>[Luxe Fashion Hub] Sản Phẩm</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/list.css">
+  <link rel="stylesheet" href="/css/contact.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/css/homestyles.css">
+  <script src="/js/homescripts.js"></script>
+  <!-- Core theme CSS (includes Bootstrap)-->
+
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Luxe Fashion Hub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars ms-1"></i>
+    </button>
+    <form th:action="@{/logout}" method="post">
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="/sanphams">Sản phẩm</a></li>
+          <li class="nav-item"><a class="nav-link" href="/blogs">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contacts">Liên Hệ</a></li>
+          <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')"><a class="nav-link" href="/admins/index">Quản lý</a></li>
+          <li class="nav-item"><a class="nav-link" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+
+          <li class="nav-item dropdown">
+            <a style="font-weight: bold" class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#" sec:authentication="name"></a>
+            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" th:href="@{/change_password/{id}(id=${#authentication.principal.id})}">Quên mật khẩu</a></li>
+              <li><button class="dropdown-item" style="background-color: transparent; border: none; cursor: pointer;" type="submit">ĐĂNG XUẤT</button></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</nav>
+
+<!--<th:block th:replace="layout/fragment :: header"></th:block>-->
+<div class="container bootdey">
+  <h1 style="text-align: center; margin: 120px 0 50px;">SẢN PHẨM</h1>
+  <div class="col-md-12">
+   <!-- <div class="panel-body">
+      <form th:action="@{/search}" method="GET">
+        <input type="text" name="keyword" th:value="${keyword}" th:placeholder="Tìm kiếm sản phẩm" class="form-control" />
+      </form>
+    </div>-->
+    <div class="row product-list">
+      <div class="col-md-3" th:each="product : ${products}">
+        <form th:action="@{/addToCart}" method="post">
+          <input type="hidden" name="id" th:value="${product.id}">
+        <section class="panel" style="padding: 0">
+          <div class="pro-img-box" style="max-height: 300px">
+            <img th:src="@{/images/__${product.image}__}" style="height: 300px; max-width: 100%" alt="" />
+            <button type="submit" class="adtocart" style="display: flex; align-items: center; justify-content: center; font-size: 20px;"><i class="fa fa-shopping-cart"></i></button>
+          </div>
+
+          <div class="panel-body text-center">
+            <h4>
+              <a th:href="@{'/sanphams/CT_details/' + ${product.id}}" class="pro-title" th:text="${product.name}"></a>
+            </h4>
+            <p class="price" th:text="${product.price}"></p>
+          </div>
+        </section>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <th:block th:replace="layout/fragment :: footer"></th:block>
+  <div class="container">
+    <div class="links">
+      Luxe Fashion Hub
+      <br>
+      Since 2023
+    </div>
+  </div>
+</footer>
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+  window.__lc = window.__lc || {};
+  window.__lc.license = 15545556;
+  ; (function (n, t, c) { function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) } var e = { _q: [], _h: null, _v: "2.0", on: function () { i(["on", c.call(arguments)]) }, once: function () { i(["once", c.call(arguments)]) }, off: function () { i(["off", c.call(arguments)]) }, get: function () { if (!e._h) throw new Error("[LiveChatWidget] You can't use getters before load."); return i(["get", c.call(arguments)]) }, call: function () { i(["call", c.call(arguments)]) }, init: function () { var n = t.createElement("script"); n.async = !0, n.type = "text/javascript", n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n) } }; !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e }(window, document, [].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/15545556/" rel="nofollow">Chat với chúng tôi</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+</body>
+</html>

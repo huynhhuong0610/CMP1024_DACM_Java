@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>Thanh toán</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    section {
+      background: #eecda3;
+      background: -webkit-linear-gradient(to right, #eecda3, #ef629f);
+      background: linear-gradient(to right, #eecda3, #ef629f);
+      min-height: 100vh;
+    }</style>
+
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/css/homestyles.css">
+  <script src="/js/homescripts.js"></script>
+  <!-- Core theme CSS (includes Bootstrap)-->
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">Luxe Fashion Hub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars ms-1"></i>
+    </button>
+    <form th:action="@{/logout}" method="post">
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="/sanphams">Sản phẩm</a></li>
+          <li class="nav-item"><a class="nav-link" href="/blogs">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contacts">Liên Hệ</a></li>
+          <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')"><a class="nav-link" href="/admins/index">Quản lý</a></li>
+          <li class="nav-item"><a class="nav-link" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+
+          <li class="nav-item dropdown">
+            <a style="font-weight: bold" class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#" sec:authentication="name"></a>
+            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" th:href="@{/change_password/{id}(id=${#authentication.principal.id})}">Quên mật khẩu</a></li>
+              <li><button class="dropdown-item" style="background-color: transparent; border: none; cursor: pointer;" type="submit">ĐĂNG XUẤT</button></li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </form>
+  </div>
+</nav>
+
+
+<section class="bg-light py-5">
+  <div class="container">
+    <div class="container text-white py-5 text-center">
+      <h1 class="display-4">Thanh toán</h1>
+      <p class="lead mb-0">Luxe Fashion Hub</p>
+    </div>
+    <form class="row" th:object="${user}">
+      <div class="col-xl-8 col-lg-8 mb-4">
+        <!-- Checkout -->
+        <div class="card shadow-0 border">
+          <div class="p-4">
+            <h5 class="card-title mb-3">Thông tin khách hàng</h5>
+
+            <div class="row">
+              <div class="col-6 mb-3">
+                <p class="mb-0">Tên</p>
+                <div class="form-outline">
+                  <input type="text" id="username" th:field="*{username}" placeholder="Type here" class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <p class="mb-0">Địa chỉ</p>
+                <div class="form-outline">
+                  <input type="text" id="address" th:field="*{address}" placeholder="Type here" class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <p class="mb-0">Số điện thoại</p>
+                <div class="form-outline">
+                  <input type="tel" id="phonenumber" th:field="*{phonenumber}" value="+48 " class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <p class="mb-0">Email</p>
+                <div class="form-outline">
+                  <input type="email" id="email" th:field="*{email}" placeholder="example@gmail.com" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <div class="float-end">
+              <button class="btn btn-light border">Cancel</button>
+              <a th:href="@{/save_order}" class="btn btn-success shadow-0 border">Đặt hàng</a>
+            </div>
+          </div>
+        </div>
+        <!-- Checkout -->
+      </div>
+      <div class="col-xl-4 col-lg-4 ">
+        <div class="card border" style="padding: 30px">
+          <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 400px;">
+            <h6 class="mb-3">Summary</h6>
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Total price:</p>
+              <p class="mb-2"><strong>[[${Total}]]</strong></p>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Shipping cost:</p>
+              <p class="mb-2">Free</p>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Total price:</p>
+              <p class="mb-2 fw-bold"><strong>[[${Total}]]</strong></p>
+            </div>
+
+            <hr />
+            <h6 class="text-dark my-4">Items in cart</h6>
+            <div class="d-flex align-items-center mb-4" th:each="item: ${cart}">
+              <div class="me-3 position-relative">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary"
+                    th:text="${item.quantity}">
+              </span>
+                <img th:src="@{/images/__${item.product.image}__}" alt="" width="70" class="img-fluid rounded shadow-sm">
+              </div>
+              <div class="col-md-8">
+                <a href="#" class="nav-link" th:text="${item.product.name}">
+                </a>
+                <div class="text-muted">Total: [[${item.subtotal}]]</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+  </form>
+  </div>
+</section>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>

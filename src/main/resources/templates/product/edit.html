@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa sản phẩm</title>
+    <th:block th:replace="layout/fragment :: link-css"></th:block>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+    <h1>Sửa sản phẩm</h1>
+    <form th:action="@{/products/edit}" th:object="${product}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <div class="col-6 mb-3">
+            <label class="form-label" for="name">Tên sản phẩm: </label>
+            <input class="form-control" type="text" th:field="*{name}" id="name">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="price">Giá sản phẩm: </label>
+            <input class="form-control" type="text" th:field="*{price}" id="price">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="description">Mô tả: </label>
+            <input class="form-control" type="text" th:field="*{description}" id="description">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label" for="quantity">Số lượng: </label>
+            <input class="form-control" type="text" th:field="*{quantity}" id="quantity">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="col-sm-2 col-form-label">Photo:</label>
+            <input class="form-control" type="file" name="image2" accept="image/png, image/jpg">
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label">Danh mục sản phẩm: </label>
+            <select class="form-control" id ="category" name = "category.id" required>
+                <option value="">--Danh mục sản phẩm--</option>
+                <option th:each="category :${categories}" th:value="${category.id}"
+                        th:text="${category.name}"></option>
+            </select>
+        </div>
+
+        <div class="col-6 mb-3">
+            <label class="form-label">Danh mục nhà cung cấp: </label>
+            <select class="form-control" id ="supplier" name = "supplier.id" required>
+                <option value="">--Danh mục nhà cung cấp--</option>
+                <option th:each="supplier :${suppliers}" th:value="${supplier.id}"
+                        th:text="${supplier.name}"></option>
+            </select>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+    <br>
+    <a th:href="@{/products}">Quay về</a>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>
+

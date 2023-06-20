@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>[Luxe Fashion Hub] Admin</title>
+  <link th:fragment="link-css" rel="stylesheet" th:href="@{./css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+<header th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-image: url('https://png.pngtree.com/background/20210714/original/pngtree-abstract-pastel-yellow-watercolor-background-picture-image_1223400.jpg');">
+    <div class="container">
+      <a class="navbar-brand" href="/">Luxe Fashion Hub</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" style="justify-content: right">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/products" sec:authorize="hasAnyAuthority('ADMIN')">DS Sản Phẩm</a></li>
+          <li class="nav-item"><a class="nav-link" href="/suppliers" sec:authorize="hasAnyAuthority('ADMIN')">Nhà cung cấp</a></li>
+          <li class="nav-item"><a class="nav-link" href="/categories" sec:authorize="hasAnyAuthority('ADMIN')">Danh mục sản phẩm</a></li>
+          <li class="nav-item"><a class="nav-link" href="/roles" sec:authorize="hasAnyAuthority('ADMIN')">Role</a></li>
+          <li class="nav-item"><a class="nav-link" href="/users" sec:authorize="hasAnyAuthority('ADMIN')">Người dùng</a></li>
+          <li class="nav-item"><a class="nav-link" href="/orders" sec:authorize="hasAnyAuthority('ADMIN')">Đơn hàng</a></li>
+        </ul>
+        <ul class="nav navbar-nav flex-row justify-content-between ms-auto">
+          <li>
+            <div sec:authorize="isAuthenticated()">
+              <!--<form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">-->
+                <div class="input-group">
+                  <a style="font-weight: bold" class="nav-link" href="#" sec:authentication="name"></a>
+                  <a class="nav-link" th:href="@{/change_password/{id}(id=${#authentication.principal.id})}">Đổi mật khẩu</a>
+                  <a class="nav-link" href="#" sec:authorize="hasAnyAuthority('USER')"><i class="fa-sharp fa-solid fa-cart-shopping"></i></a>
+                  <button class="nav-link" style="background-color: transparent; border: none; cursor: pointer;" type="submit"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+              </form>
+            </div>
+            <div sec:authorize="isAnonymous()">
+              <a class="nav-link" href="/login">Đăng nhập</a>
+            </div>
+          </li>
+          <li>
+            <div sec:authorize="isAnonymous()">
+              <a class="nav-link" href="/register">Đăng ký</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div th:insert="~{::${content}}"></div>
+
+<footer th:fragment="footer">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+</footer>
+</body>
+</html>

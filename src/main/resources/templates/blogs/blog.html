@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>[Luxe Fashion Hub] Blog</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="/blog/css/mdb.min.css" />
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/css/homestyles.css">
+  <script src="/js/homescripts.js"></script>
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link rel="stylesheet" href="/css/list.css">
+  <link rel="stylesheet" href="/css/contact.css">
+
+</head>
+<body>
+<header>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="/">Luxe Fashion Hub</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars ms-1"></i>
+      </button>
+      <form th:action="@{/logout}" method="post">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+            <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+            <li class="nav-item"><a class="nav-link" href="/sanphams">Sản phẩm</a></li>
+            <li class="nav-item"><a class="nav-link" href="/blogs">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contacts">Liên Hệ</a></li>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')"><a class="nav-link" href="/admins/index">Quản lý</a></li>
+            <li class="nav-item"><a class="nav-link" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+
+            <li class="nav-item dropdown">
+              <a style="font-weight: bold" class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#" sec:authentication="name"></a>
+              <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" th:href="@{/change_password/{id}(id=${#authentication.principal.id})}">Quên mật khẩu</a></li>
+                <li><button class="dropdown-item" style="background-color: transparent; border: none; cursor: pointer;" type="submit">ĐĂNG XUẤT</button></li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </form>
+    </div>
+  </nav>
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="my-5">
+  <div class="container">
+    <!--Section: Content-->
+    <section class="text-center" style="padding: 5rem 0">
+      <h1 class="mb-5"><strong>TIN TỨC MỚI NHẤT</strong></h1>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-12 mb-4">
+          <div class="card" style="height: 600px;">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="https://image.gala.de/22975092/t/1b/v4/w1440/r0/-/dior-homme-show-4.jpg" class="img-fluid" />
+              <a href="#">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Fall 2023 Collection</h5>
+              <p class="card-text" style="text-align: justify">
+                For the Dior Fall 2023 men's collection, Kim Jones has initiated a captivating dialogue between ancient and modern civilizations. Combining heritage and futurism, the silhouettes showcase the House's savoir-faire, reinterpreted with the excellence of contemporary technology.
+              </p>
+              <a href="https://www.dior.com/en_vn/fashion/mens-fashion/fall-2023-collection" class="btn btn-primary">Đọc thêm</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card" style="height: 600px;">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="https://www.chanel.com/images/q_auto,f_auto,fl_lossy,dpr_auto/w_672/FSH-CHN-1686037701948-01.jpg" class="img-fluid" />
+              <a href="#">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">THE CHANEL 2022/23 MÉTIERS D'ART
+                COLLECTION CAMPAIGN</h5>
+              <p class="card-text" style="text-align: justify">
+                Imagined by Virginie Viard and crafted between the CHANEL Ready-to-Wear ateliers rue Cambon, in Paris and the Maisons d’art of le19M, the CHANEL 2022/23 Métiers d'art collection pays tribute to the savoir-faire of the Maisons d’art. The collection campaign is embodied by models Amar Akway and Rianne Van Rompaey and photographed by Mikael Jansson.
+              </p>
+              <a href="https://www.chanel.com/us/fashion/news/2023/06/chanel-22-23-mda-collection-campaign.html" class="btn btn-primary">Đọc thêm</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card" style="height: 600px;">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="https://media.gucci.com/content/DiaryArticleDouble_Standard_2800x1788/1455010204/DiaryArticleDouble_agenda-issue03-ss61-double-platform-03_001_Default.jpg" class="img-fluid" />
+              <a href="#">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Presenting the season’s stacked pump, with a double platform</h5>
+              <p class="card-text" style="text-align: justify">
+                Making its debut on the Spring 2016 runway, the T-strap stacked pump anchored soft gowns and skirts. Fitted with double platforms, bearing tiger head and stud hardware, this season’s heels walk the line between feminine and flirty.
+              </p>
+              <a href="https://www.gucci.com/nz/en_au/st/stories/accessories/article/agenda_2016_issue03_next_level" class="btn btn-primary">Đọc thêm</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-12 mb-4">
+          <div class="card" style="height: 600px;">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="https://eu.louisvuitton.com/images/is/image/lv/1/VE_DI3_L/louis-vuitton--LV_NOW_POPUP_FW18_WOMEN_KR_DI3.jpg?wid=1900&hei=1069" class="img-fluid" />
+              <a href="#">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">LOUIS VUITTON POP-UP STORE IN SHINSEGAE GANGNAM</h5>
+              <p class="card-text" style="text-align: justify">
+                Louis vuitton sets pop-up store of the maison dedicatec to the fall-winter 2018 women's collection in shinsegae gangnam.
+              </p>
+              <a href="https://eu.louisvuitton.com/eng-e1/lv-now/to-2" class="btn btn-primary">Đọc thêm</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card" style="height: 600px;">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR29_IPa2vtzqhUL_4Svakz6DDhh8Dmep1XkQ&usqp=CAU" class="img-fluid" />
+              <a href="#">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Fendi Men's Spring/Summer 2024 Fashion Show</h5>
+              <p class="card-text" style="text-align: justify">
+                Presented at Fendi Factory in Tuscany, the Maison's innovative new hub for artisans of the future, the latest from Silvia Venturini Fendi draws from location itself, with utilitarian elegance and mineral shades coming together in a playful exploration of the 'corporate artisan' and tactile expressions of Fendi's finest craft.
+              </p>
+              <a href="https://www.fendi.com/sk-en/cm/inside-fendi/fashion-show/fendi-mens-spring-summer-2024-fashion-show" class="btn btn-primary">Đọc thêm</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card" style="height: 600px;">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+              <img src="data:image/jpeg;base64,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" class="img-fluid" />
+              <a href="#">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+              </a>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">INNERWEAR AS OUTERWEAR: THE SIZZLING TREND OF SUMMER 2023</h5>
+              <p class="card-text" style="text-align: justify">
+                From the boudoir to the street, lingerie-inspired fashion is creating a mini-revolution, blurring the lines between intimate apparel and outerwear. Lacey lingerie looks celebrate extreme femininity while evoking the tantalizing allure of self-confidence.
+              </p>
+              <a href="https://www.universityoffashion.com/blog/tag/burberry/" class="btn btn-primary">Đọc thêm</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Section: Content-->
+
+    <!--&lt;!&ndash; Pagination &ndash;&gt;
+    <nav class="my-4" aria-label="...">
+      <ul class="pagination pagination-circle justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+          <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>-->
+  </div>
+</main>
+<!--Main layout-->
+
+<!--Footer-->
+<footer class="page-footer">
+  <th:block th:replace="layout/fragment :: footer"></th:block>
+  <div class="container">
+    <div class="links">
+      Luxe Fashion Hub
+      <br>
+      Since 2023
+    </div>
+  </div>
+</footer>
+<!--Footer-->
+
+<!-- MDB -->
+<script type="text/javascript" src="/js/mdb.min.js"></script>
+<!-- Custom scripts -->
+<script type="text/javascript" src="/js/script.js"></script>
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+  window.__lc = window.__lc || {};
+  window.__lc.license = 15545556;
+  ; (function (n, t, c) { function i(n) { return e._h ? e._h.apply(null, n) : e._q.push(n) } var e = { _q: [], _h: null, _v: "2.0", on: function () { i(["on", c.call(arguments)]) }, once: function () { i(["once", c.call(arguments)]) }, off: function () { i(["off", c.call(arguments)]) }, get: function () { if (!e._h) throw new Error("[LiveChatWidget] You can't use getters before load."); return i(["get", c.call(arguments)]) }, call: function () { i(["call", c.call(arguments)]) }, init: function () { var n = t.createElement("script"); n.async = !0, n.type = "text/javascript", n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n) } }; !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e }(window, document, [].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/15545556/" rel="nofollow">Chat với chúng tôi</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+</body>
+</html>

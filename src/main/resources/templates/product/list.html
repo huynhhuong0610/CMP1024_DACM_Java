@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách sản phẩm</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/contact.css">
+
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/css/homestyles.css">
+  <script src="/js/homescripts.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<th:block th:replace="layout/fragment :: header"></th:block>
+<div class="container">
+  <h2>Danh sách sản phẩm</h2>
+  <table class="table">
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+      <a style="text-decoration: none; color: red" href="/products/add">Thêm sản phẩm</a>
+    </div>
+    <!--<button type="submit" class="btn btn-outline-primary btn-block mb-4" style="margin-top: 10px">
+    Thêm danh mục
+    </button>-->
+    <thead>
+    <tr>
+      <th scope="col">
+        Mã sản phẩm
+      </th>
+      <th scope="col">
+        Tên sản phẩm
+      </th>
+      <th scope="col">
+        Giá sản phẩm
+      </th>
+      <th scope="col">
+        Mô tả
+      </th>
+      <th scope="col">
+        Hình ảnh
+      </th>
+      <th scope="col">
+        Số lượng
+      </th>
+      <th scope="col">
+        Loại sản phẩm
+      </th>
+      <th scope="col">
+        Nhà cung cấp
+      </th>
+    </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+    <tr th:each="product : ${products}">
+      <td th:text="${product.id}" style="vertical-align: middle"></td>
+      <td th:text="${product.name}" style="vertical-align: middle; word-wrap: break-word; max-width: 150px"></td>
+      <td th:text="${product.price}" style="vertical-align: middle"></td>
+      <td th:text="${product.description}" style="vertical-align: middle; word-wrap: break-word; max-width: 150px"></td>
+      <td>
+        <img style="width:150px" th:if="${product.image != null}" th:src="@{/images/__${product.image}__}" alt="User Image" />
+        <img style="width:150px" th:unless="${product.image != null}" th:src="@{/images/default-image.jpg}" alt="Default User Photo" />
+      </td>
+      <td th:text="${product.quantity}" style="vertical-align: middle"></td>
+      <td th:text="${product.category.name}" style="vertical-align: middle"></td>
+      <td th:text="${product.supplier.name}" style="vertical-align: middle"></td>
+      <td style="vertical-align: middle">
+        <div class="row">
+        <div sec:authorize="hasAnyAuthority('EDITOR', 'ADMIN')">
+          <a style="color: unset" th:href="@{'/products/edit/' + ${product.id}}"><i style="color: dodgerblue" class="fa-solid fa-pen-to-square"></i></a>
+        </div> |
+        <div sec:authorize="hasAnyAuthority('ADMIN')">
+          <a style="color: unset" th:href="@{'/products/delete/' + ${product.id}}"
+             onclick="return confirm('BẠN CÓ MUỐN XÓA THIỆT TÌNH CHỨ ????')"><i style="color: red" class="fa-solid fa-trash"></i></a>
+        </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout/fragment :: footer"></th:block>
+</body>
+</html>
